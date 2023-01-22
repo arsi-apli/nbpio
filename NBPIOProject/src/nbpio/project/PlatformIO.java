@@ -18,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -41,6 +40,10 @@ public final class PlatformIO {
     
     public static Process startProjectInitProcess( String board, String projectDirPath ) throws IOException {        
         return new ProcessBuilder().command( PLATFORMIO_COMMAND, "-f", "-c", "netbeans", "init", "--ide", "netbeans", "-b", board, "-d", projectDirPath ).start();
+    }
+
+    public static Process startProjectUpdateProcess(String projectDirPath) throws IOException {
+        return new ProcessBuilder().command(PLATFORMIO_COMMAND, "init", "--ide", "netbeans", "-d", projectDirPath).start();
     }
     
     public static File addSourceFileToProject( File projectRoot, InputStream sourceFileStream, String sourceFilename ) throws IOException {                
